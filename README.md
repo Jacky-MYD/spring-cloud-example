@@ -229,3 +229,4 @@
   }
 ```
 到此，配置中心、注册中心以及网关配置都已经配置好了，可以按顺序启动服务了
+spring-cloud-example-config>>spring-cloud-example-eureka>>spring-cloud-example-a/spring-cloud-example-b/spring-cloud-example-gateway
