@@ -75,5 +75,41 @@
 
   }
 ```
-### 3. 注册中心
-  
+#### 3. 注册中心
+- 在spring-cloud-examples项目下创建子项目spring-cloud-example-register，并添加spring-cloud-netflix-eureka-server和spring-cloud-starter-config核心依赖包。[pox.xml配置](https://github.com/Jacky-MYD/spring-cloud-example/blob/master/spring-cloud-example-registry/pom.xml)
+- 在项目中的resources目录下添加[bootstrap.yml](https://github.com/Jacky-MYD/spring-cloud-example/blob/master/spring-cloud-example-registry/src/main/resources/bootstrap.yml)。
+```bootstrap.yml
+  spring:
+    cloud:
+      config:
+        name: spring-cloud-example-registry #配置文件名称，多个通过逗号分隔
+        uri: http://localhost:8000 #Config Server服务地址
+```
+- 在spring-cloud-example-config项目中的resources添加configs目录，并且添加一个服务配置文件[spring-cloud-example-registry.yml](https://github.com/Jacky-MYD/spring-cloud-example/tree/master/spring-cloud-example-config/src/main/resources/configs)。
+```
+  spring:
+  application:
+    name: spring-cloud-example-registry
+
+  # Eureka相关配置
+  eureka:
+    client:
+      register-with-eureka: false #不注册服务
+      fetch-registry: false #不拉去服务清单
+      serviceUrl:
+        defaultZone: http://localhost:${server.port}/eureka/ #多个通过英文逗号分隔
+
+  server:
+    port: 8001
+```
+- 启动类[EurekaApplication](https://github.com/Jacky-MYD/spring-cloud-example/blob/master/spring-cloud-example-registry/src/main/java/com/example/project/EurekaApplication.java)添加注解@EnableEurekaServer通过启用Eureka Server服务。
+```
+  @SpringBootApplication
+  @EnableEurekaServer
+  public class EurekaApplication {
+    public static void main(String[] args) {
+      // TODO Auto-generated method stub
+      SpringApplication.run(EurekaApplication.class, args);
+    }
+  }
+```
