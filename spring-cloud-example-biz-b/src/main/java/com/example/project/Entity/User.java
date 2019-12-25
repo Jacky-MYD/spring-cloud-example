@@ -13,8 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
@@ -41,7 +39,7 @@ public class User {
 	private String username;
 	
 	/** 手机 */
-	@Column
+	@Column(nullable = false)
 	private String mobile;
 
 	/** 密码 */
