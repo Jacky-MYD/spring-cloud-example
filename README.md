@@ -63,3 +63,17 @@
   server:
     port: 8000 #服务端口
 ```
+- 启动类[ConfigApplication](https://github.com/Jacky-MYD/spring-cloud-example/blob/master/spring-cloud-example-config/src/main/java/com/example/project/ConfigApplication.java)添加注解@EnableConfigServer，通过启用Config Service服务
+```ConfigApplication.java
+  @SpringBootApplication
+  @EnableConfigServer
+  public class ConfigApplication {
+    public static void main(String[] args) {
+      // TODO Auto-generated method stub
+      SpringApplication.run(ConfigApplication.class, args);
+    }
+
+  }
+```
+### 3. 注册中心
+  
