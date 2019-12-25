@@ -64,32 +64,37 @@
   ##### 3. Service
   ##### 新建[UserService.java](https://github.com/Jacky-MYD/spring-cloud-example/blob/master/spring-cloud-example-biz-a/src/main/java/com/example/project/Service/UserService.java)，Service用于处理客户端请求的一些业务逻辑。
 ```
-  public Result<Long> login(String userName, String password) {
-    Result<Long> result = new Result<>();
-    List<User> list = userRepository.getByUserName(userName);
-
-    User user = null;
-    if(list != null && list.size() >0) {
-      user = list.get(0);
+  @Service
+  public class UserService {
+    public Result<Long> login(String userName, String password) {
+      Result<Long> result = new Result<>();
+      List<User> list = userRepository.getByUserName(userName);
+      User user = null;
+      if(list != null && list.size() >0) {
+        user = list.get(0);
+      }
+      if (user == null) {	 
+        result.setErrCode(-1);
+        result.setErrMsg("用户不存在");
+      } else if (user.getPassword().equals(password)) {
+        System.out.println(userName.toString());
+        result.setErrCode(1);
+        result.setData(user.getId());
+      } else {
+        result.setErrCode(-1);
+        result.setErrMsg("密码错误");
+      }
+      return result;
     }
-    if (user == null) {
-      result.setErrCode(-1);
-      result.setErrMsg("用户不存在");
-    } else if (user.getPassword().equals(password)) {
-      System.out.println(userName.toString());
-      result.setErrCode(1);
-      result.setData(user.getId());
-    } else {
-      result.setErrCode(-1);
-      result.setErrMsg("密码错误");
-    }
-    return result;
+    ...
   }
-  ...
  ```
     ##### 4. Controller
     ##### 新建[UsreController.java](https://github.com/Jacky-MYD/spring-cloud-example/blob/master/spring-cloud-example-biz-a/src/main/java/com/example/project/Controller/UsreController.java), controller用于编写暴露接口给客户端业务逻辑，并且衔接service层处理相关业务逻辑
 ```UsreController.java
+  @RestController
+  @RequestMapping("/api/account")
+  public class UsreController {
     @PostMapping("/login")
 	  public String login(@RequestBody JSONObject data, HttpServletRequest request) {
       System.out.println("===========++======================="+data);
@@ -111,4 +116,5 @@
       }
       return JSONObject.toJSONString(token);
     }
+  }
 ```
