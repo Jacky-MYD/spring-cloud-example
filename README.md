@@ -113,3 +113,119 @@
     }
   }
 ```
+#### 搭建业务服务A(B、C、D...)
+- 在spring-cloud-examples项目下创建子项目spring-cloud-example-a(b、c、d...)，并在相应的服务中添加相应的[pox.xml](https://github.com/Jacky-MYD/spring-cloud-example/blob/master/spring-cloud-example-biz-a/pom.xml)，以下以服务A为案例：
+```pom.xml
+  <!-- Eureka Client Starter -->
+  <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+  </dependency>
+  <!-- Config Client Starter -->
+  <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-config</artifactId>
+  </dependency>
+  ...
+```
+- 在项目中的resources目录下添加[bootstrap.yml](https://github.com/Jacky-MYD/spring-cloud-example/blob/master/spring-cloud-example-biz-a/src/main/resources/bootstrap.yml)。
+```bootstrap.yml
+  spring:
+    cloud:
+      config:
+        name: spring-cloud-example-biz-a #配置文件名称，多个通过逗号分隔
+        uri: http://localhost:8000 #Config Server服务地址
+```
+- 在spring-cloud-example-config项目中的resources添加configs目录，并且添加一个服务配置文件[spring-cloud-example-a.yml](https://github.com/Jacky-MYD/spring-cloud-example/tree/master/spring-cloud-example-config/src/main/resources/configs)。
+```
+  spring:
+  application:
+    name: biza
+
+  server:
+    port: 8010
+
+  # Eureka相关配置
+  eureka:
+    client:
+      serviceUrl:
+        defaultZone: http://localhost:8001/eureka/
+    instance:
+      lease-renewal-interval-in-seconds: 10      # 心跳时间，即服务续约间隔时间（缺省为30s）
+      lease-expiration-duration-in-seconds: 60  # 发呆时间，即服务续约到期时间（缺省为90s）
+      prefer-ip-address: true
+      instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+```
+#### 搭建服务网关
+- 在spring-cloud-examples项目下创建子项目spring-cloud-example-gateway，[pom.xml](https://github.com/Jacky-MYD/spring-cloud-example/blob/master/spring-cloud-example-gateway/pom.xml)如下：
+```pom.xml
+  <!-- zuul -->
+  <dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+  </dependency>
+
+  <!-- Eureka Client Starter -->
+  <dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+  </dependency>
+
+  <!-- Config Client Starter -->
+  <dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-config</artifactId>
+  </dependency>
+```
+- 在项目中的resources目录下添加[bootstrap.yml](https://github.com/Jacky-MYD/spring-cloud-example/blob/master/spring-cloud-example-gateway/src/main/resources/bootstrap.yml)。
+- 在spring-cloud-example-config项目中的resources添加configs目录，并且添加一个服务配置文件[spring-cloud-example-gateway.yml](https://github.com/Jacky-MYD/spring-cloud-example/tree/master/spring-cloud-example-config/src/main/resources/configs)。
+```
+  spring:
+  application:
+    name: spring-cloud-example-gateway
+  server:
+    port: 8002
+  # Eureka相关配置
+  eureka:
+    client:
+      serviceUrl:
+        defaultZone: http://localhost:8001/eureka/
+    instance:
+      lease-renewal-interval-in-seconds: 10      # 心跳时间，即服务续约间隔时间（缺省为30s）
+      lease-expiration-duration-in-seconds: 60  # 发呆时间，即服务续约到期时间（缺省为90s）
+      prefer-ip-address: true
+      instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+  zuul:
+    routes:
+      custom-route-a:
+        url: http://localhost:8010/ # 指定的url
+        path: /biza/**  # url对应的路径
+      custom-route-b:
+        url: http://localhost:8011/ # 指定的url
+        path: /bizb/**  # url对应的路径
+    host:
+      connect-timeout-millis: 15000 #HTTP连接超时要比Hystrix的大
+      socket-timeout-millis: 60000   #socket超时
+  ribbon:
+   ReadTimeout: 10000
+   ConnectTimeout: 10000
+  hystrix:
+   command:
+     default:
+       execution:
+         isolation:
+           thread:
+             timeoutInMilliseconds: 100000
+```
+- 启动类[GatewayApplication](https://github.com/Jacky-MYD/spring-cloud-example/blob/master/spring-cloud-example-gateway/src/main/java/com/example/project/GatewayApplication.java)添加注解@EnableZuulProxy通过启用网关代理服务。
+```
+  @SpringBootApplication
+  @EnableZuulProxy
+  public class GatewayApplication {
+	  public static void main(String[] args) {
+      // TODO Auto-generated method stub
+      SpringApplication.run(GatewayApplication.class, args);
+    }
+  }
+```
+到此，配置中心、注册中心以及网关配置都已经配置好了，可以按顺序启动服务了
