@@ -20,7 +20,7 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 public class JwtUtil {
 	/**
 	 * 过期时间为一分钟
-	 * TODO 正式上线更换为15分钟
+	 * TODO 正式上线更换为1小时
 	 */
 	private static final long EXPIRE_TIME = 1*60*60*1000;
 	
@@ -30,7 +30,7 @@ public class JwtUtil {
 	private static final String TOKEN_SECRET = "abc";
 	
 	/**
-	 * 生成签名，1分钟后过期
+	 * 生成签名，1小时后过期
 	 * @param username
 	 * @param id
 	 * @return
