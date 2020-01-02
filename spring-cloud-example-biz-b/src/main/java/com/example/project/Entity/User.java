@@ -2,7 +2,7 @@
  * @authour Jacky
  * @data Dec 23, 2019
  */
-package com.example.project.Entity;
+package com.example.project.entity;
 
 import java.util.Date;
 

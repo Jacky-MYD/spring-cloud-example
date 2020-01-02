@@ -1,0 +1,12 @@
+/Users/helloworld/Documents/ghost/work/example-workspace/spring-cloud-examples/spring-cloud-example-biz-a/src/main/java/com/example/project/Repository/UserRepository.java
+/Users/helloworld/Documents/ghost/work/example-workspace/spring-cloud-examples/spring-cloud-example-biz-a/src/main/java/com/example/project/Service/RemoteService.java
+/Users/helloworld/Documents/ghost/work/example-workspace/spring-cloud-examples/spring-cloud-example-biz-a/src/main/java/com/example/project/Utils/Util.java
+/Users/helloworld/Documents/ghost/work/example-workspace/spring-cloud-examples/spring-cloud-example-biz-a/src/main/java/com/example/project/Entity/User.java
+/Users/helloworld/Documents/ghost/work/example-workspace/spring-cloud-examples/spring-cloud-example-biz-a/src/main/java/com/example/project/Service/UserService.java
+/Users/helloworld/Documents/ghost/work/example-workspace/spring-cloud-examples/spring-cloud-example-biz-a/src/main/java/com/example/project/Controller/HelloController.java
+/Users/helloworld/Documents/ghost/work/example-workspace/spring-cloud-examples/spring-cloud-example-biz-a/src/main/java/com/example/project/BizAApplication.java
+/Users/helloworld/Documents/ghost/work/example-workspace/spring-cloud-examples/spring-cloud-example-biz-a/src/main/java/com/example/project/Controller/UsreController.java
+/Users/helloworld/Documents/ghost/work/example-workspace/spring-cloud-examples/spring-cloud-example-biz-a/src/main/java/com/example/project/Entity/Result.java
+/Users/helloworld/Documents/ghost/work/example-workspace/spring-cloud-examples/spring-cloud-example-biz-a/src/main/java/com/example/project/Entity/Token.java
+/Users/helloworld/Documents/ghost/work/example-workspace/spring-cloud-examples/spring-cloud-example-biz-a/src/main/java/com/example/project/Utils/RedisUtil.java
+/Users/helloworld/Documents/ghost/work/example-workspace/spring-cloud-examples/spring-cloud-example-biz-a/src/main/java/com/example/project/Service/TokenService.java

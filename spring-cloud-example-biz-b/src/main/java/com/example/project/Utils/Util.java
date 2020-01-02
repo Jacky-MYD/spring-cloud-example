@@ -2,7 +2,7 @@
  * @authour Jacky
  * @data Dec 24, 2019
  */
-package com.example.project.Utils;
+package com.example.project.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

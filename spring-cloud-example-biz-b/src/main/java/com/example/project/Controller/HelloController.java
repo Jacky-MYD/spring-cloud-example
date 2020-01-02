@@ -2,7 +2,7 @@
  * @authour Jacky
  * @data Dec 19, 2019
  */
-package com.example.project.Controller;
+package com.example.project.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

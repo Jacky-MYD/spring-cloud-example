@@ -2,7 +2,7 @@
  * @authour Jacky
  * @data Dec 23, 2019
  */
-package com.example.project.Dto;
+package com.example.project.dto;
 
 import java.util.HashMap;
 

@@ -8,11 +8,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
+
+import com.google.code.kaptcha.Producer;
 
 /**
  * @author Jacky
  *
  */
+@Component
 @SpringBootApplication
 @EnableEurekaClient
 @ComponentScan({"com.example.project.*"})
@@ -25,5 +29,4 @@ public class BizBApplication {
 		// TODO Auto-generated method stub
 		SpringApplication.run(BizBApplication.class, args);
 	}
-
 }

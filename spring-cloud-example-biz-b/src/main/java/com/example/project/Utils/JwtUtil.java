@@ -2,7 +2,7 @@
  * @authour Jacky
  * @data Dec 23, 2019
  */
-package com.example.project.Utils;
+package com.example.project.utils;
 
 import java.util.Date;
 import java.util.HashMap;
